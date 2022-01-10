@@ -9,20 +9,14 @@ Zero-dependency NodeJS utility to stringify the key-value pairs of an object.
 ```ts
 import { kv } from '@nkp/kv';
 
-// hello="word"  im="nick"
+// hello="word"  library="@nkp/kv"
 kv({ hello: 'world', im: 'nick' });
 
 // hello="word"
 kv({ hello: 'world', }, { key(key: string) => chalk.green(key) });
 
-// hello="word"
-kv({ hello: 'world', }, { value(value: string) => chalk.blue(value) });
-
 // change the default key mapper
 kv.key = (key: string) => chalk.green(key);
-
-// change the default key mapper
-kv.value = (value: string) => chalk.blue(value);
 ```
 
 ## Table of contents
