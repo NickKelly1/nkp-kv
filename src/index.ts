@@ -152,11 +152,11 @@ export namespace kv {
           return options.key(options.prefix)
             + '='
             + valueStr;
-          ;
+
         }
 
         default: {
-          const valueStr = options.value(String(unknown))
+          const valueStr = options.value(String(unknown));
           if (!options.prefix) return valueStr;
           return options.key(options.prefix)
             + '='
@@ -164,5 +164,5 @@ export namespace kv {
         }
       }
     },
-  }
+  };
 }
