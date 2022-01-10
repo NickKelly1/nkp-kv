@@ -1,21 +1,21 @@
 {
-  "name": "---NPM-PACKAGE-IDENTIFIER---",
+  "name": "@nkp/kv",
   "sideEffects": false,
   "version": "0.0.0",
-  "description": "---PACKAGE-DESCRIPTION---",
+  "description": "Zero-dependency NodeJS utility to stringify the key-value pairs of an object.",
   "main": "cjs/index.js",
   "module": "es/index.js",
   "author": "Nick Kelly",
-  "homepage": "---GITHUB-URL---#readme",
-  "readme": "---GITHUB-URL---#readme",
+  "homepage": "https://github.com/NickKelly1/nkp-kv.git#readme",
+  "readme": "https://github.com/NickKelly1/nkp-kv.git#readme",
   "license": "MIT",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "---GITHUB-URL---"
+    "url": "https://github.com/NickKelly1/nkp-kv.git"
   },
   "bugs": {
-    "url": "---GITHUB-URL---/issues"
+    "url": "https://github.com/NickKelly1/nkp-kv.git/issues"
   },
   "keywords": [
     "TypeScript",
