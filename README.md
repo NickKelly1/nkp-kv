@@ -10,13 +10,19 @@ Zero-dependency NodeJS utility to stringify the key-value pairs of an object.
 import { kv } from '@nkp/kv';
 
 // hello="word"  library="@nkp/kv"
-kv({ hello: 'world', im: 'nick' });
+kv({ hello: 'world', library: '@nkp/kv' });
 
-// hello="word"
-kv({ hello: 'world', }, { key(key: string) => chalk.green(key) });
+// you map change the default key formatting
+// this can be used to add colors
 
-// change the default key mapper
-kv.key = (key: string) => chalk.green(key);
+// __hello__="word"  __library__="@nkp/kv"
+kv({ hello: 'world', library: '@nkp/kv' }, { formatKey: (key) => `__${key}__`, });
+
+// change formatKey for all calls
+kv.defaults.formatKey = (key) => `__${key}__`;
+
+// __hello__="word"  __library__="@nkp/kv"
+kv({ hello: 'world', library: '@nkp/kv' });
 ```
 
 ## Table of contents
@@ -31,19 +37,19 @@ kv.key = (key: string) => chalk.green(key);
 
 ## Installation
 
-### NPM
+### npm
 
 ```sh
 npm install @nkp/kv
 ```
 
-### Yarn
+### yarn
 
 ```sh
 yarn add @nkp/kv
 ```
 
-### PNPM
+### pnpm
 
 ```sh
 pnpm add @nkp/kv
