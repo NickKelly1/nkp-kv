@@ -62,8 +62,8 @@ describe('kv should', () => {
       expect(kv(BigInt(5))).toBe('5n');
     });
 
-    it('BigInt(99999999999999999999999)', () => {
-      expect(kv(BigInt('99999999999999999999999'))).toBe('99999999999999999999999n');
+    it('BigInt(99,999,999,999,999,999,999,999)', () => {
+      expect(kv(BigInt('99999999999999999999999'))).toBe('99,999,999,999,999,999,999,999n');
     });
   });
 
@@ -76,26 +76,26 @@ describe('kv should', () => {
       expect(kv(function world() {})).toBe('[Function world]');
     });
 
-    it('[Function props] {  hello="world"  }', () => {
+    it('[Function props]', () => {
       function props() {}
       props.hello = 'world';
-      const str = '[Function props] {  hello="world"  }';
+      const str = '[Function props]';
       expect(kv(props)).toBe(str);
     });
 
-    it('[Function props] {  hello="world"  lib="kv"  }', () => {
+    it('[Function props]', () => {
       function props() {}
       props.hello = 'world';
       props.lib = 'kv';
-      const str = '[Function props] {  hello="world"  lib="kv"  }';
+      const str = '[Function props]';
       expect(kv(props)).toBe(str);
     });
 
-    it('[Function nested] {  hello="world"  nested={  prop="value"  }  }', () => {
+    it('[Function nested]', () => {
       function nested() {}
       nested.hello = 'world';
       nested.nested = { prop: 'value', };
-      const str = '[Function nested] {  hello="world"  nested={  prop="value"  }  }';
+      const str = '[Function nested]';
       expect(kv(nested)).toBe(str);
     });
   });
@@ -123,10 +123,7 @@ describe('kv should', () => {
         },
       };
       const str = 'nested1="value1"'
-        + '  nested2={'
-          + '  nested21="value21"'
-          + '  nested22={}'
-        + '  }'
+        + '  nested2=[object Object]'
       ;
       expect(kv(obj)).toBe(str);
     });
@@ -144,16 +141,51 @@ describe('kv should', () => {
         },
       };
       const str = 'nested1="value1"'
-        + '  nested2={'
-          + '  nested21="value21"'
-          + '  nested22={'
-            + '  nested221="value221"'
-            + '  nested222={}'
-          + '  }'
-          + '  nested23={}'
-        + '  }'
+        + '  nested2=[object Object]'
       ;
       expect(kv(obj)).toBe(str);
+    });
+
+    it('emtpy', () => expect(kv({})).toBe('<empty Object>'));
+  });
+
+  describe('print null prototypes', () => {
+    it('empty', () => expect(kv(Object.create(null))).toBe('<empty <null>>'));
+    it('non-emtpy', () => {
+      const obj = Object.create(null);
+      obj.hello = 'world';
+      expect(kv(obj)).toBe('hello="world"');
+    });
+  });
+
+  describe('print maps', () => {
+    it('empty', () => expect(kv(new Map())).toBe('<empty Map>'));
+    it('non-empty', () => {
+      const obj = new Map();
+      obj.set('hello', 'world');
+      obj.set('number', 1);
+      expect(kv(obj)).toBe('hello=>"world"  number=>1');
+    });
+  });
+
+  describe('print sets', () => {
+    it('empty', () => expect(kv(new Set())).toBe('<empty Set>'));
+    it('non-empty', () => {
+      const obj = new Set();
+      obj.add('world');
+      obj.add(1);
+      expect(kv(obj)).toBe('0->"world"  1->1');
+    });
+  });
+
+  describe('print arrays', () => {
+    it('empty', () => expect(kv([])).toBe('<empty Array>'));
+    it('non-empty', () => {
+      const obj = [];
+      obj.push('world');
+      obj.push(1);
+      obj[3] = 5;
+      expect(kv(obj)).toBe('0>>"world"  1>>1  3>>5');
     });
   });
 });
